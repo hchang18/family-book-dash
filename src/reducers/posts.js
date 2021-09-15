@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE} from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE} from '../constants/actionTypes';
 /* eslint-disable import/no-anonymous-default-export */
 
 // function reducer takes in state and action
@@ -15,6 +15,8 @@ export default (posts = [], action) => {
         case UPDATE:
             // if post id is the same as payload id, return updated post,
             // else just return the original
+            return posts.map((post) => post._id === action.payload._id ? action.payload : post);
+        case LIKE:
             return posts.map((post) => post._id === action.payload._id ? action.payload : post);
         case DELETE:
             return posts.filter((post) => post._id !== action.payload)

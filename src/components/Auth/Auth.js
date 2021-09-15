@@ -8,26 +8,48 @@ import { useHistory } from 'react-router-dom';
 import useStyles from './styles';
 import Input from './Input';
 import Icon from './Icon';
+import { signin, signup } from '../../actions/auth';
+
+const initialState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmedPassword: '',
+}
 
 const Auth = () => {
 
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
+    const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch(); // hook
     const history = useHistory();
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // check if we have access to all the values 
+        // console.log(formData);
+
+        if (isSignup) {
+            // dispatch signup action and pass in formData and 
+            // history (we can navigate once something happens)
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
     };
 
-    const handleChange = () => {
-        
+    const handleChange = (e) => {
+        // make sure to spread all the other properties,
+        // but only update the one you are currently on.
+        setFormData({...formData, [e.target.name]: e.target.value})
     };
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
-        handleShowPassword(false);
+        setShowPassword(false);
     }
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)   
@@ -70,7 +92,7 @@ const Auth = () => {
                         )}
                         <Input name="email" label="Email Address" handleChange={ handleChange } type="email" />
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={ handleShowPassword }  />
-                        {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={ handleChange} type="password" />}
+                        {isSignup && <Input name="confirmedPassword" label="Repeat Password" handleChange={ handleChange} type="password" />}
                     </Grid>
 
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
