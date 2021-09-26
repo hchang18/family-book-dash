@@ -14,18 +14,25 @@ const Posts = ({ setCurrentId }) => {
     // immediately return state.posts
     // how do you know it's .posts? 
     // go to reducer -> index.js -> we have combineReducers {{ posts }}
-    const posts = useSelector((state) => state.posts);
+
+    // const posts = useSelector((state) => state.posts);
+
+    // before we simply have array of posts, but now we have an object 
+    // where we have property called posts inside the object that
+
+    const { posts } = useSelector((state) => state.posts);
+
     const classes = useStyles();
     
-    console.log(posts);
+    // console.log(posts);
 
     return (
         // if there is no posts, cirdular loading
         // else, display posts
-        !posts.length ? <CircularProgress /> : (
+        !posts?.length ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={ 3 }>
                 {posts.map((post) => (
-                    <Grid key={post._id} item xs={12} sm={6}>
+                    <Grid key={post._id} item xs={12} sm={12} md={6} lg={3}>
                         <Post post={post} setCurrentId={ setCurrentId }/>
                     </Grid>
                 ))}

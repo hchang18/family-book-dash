@@ -49,6 +49,7 @@ const Form = ({ currentId, setCurrentId}) => {
         }
 
         clear();
+
     };
 
 

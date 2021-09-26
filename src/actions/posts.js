@@ -1,5 +1,5 @@
 // import everything from api
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE} from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE} from '../constants/actionTypes';
 import * as api from '../api';
 
 // Action Creators : function that return action
@@ -24,12 +24,13 @@ import * as api from '../api';
 
 // put it in a try catch block
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
     
     try {
 
         // fetch the data from api
-        const { data } = await api.fetchPosts();
+        const { data } = await api.fetchPosts(page);
+        console.log("actions: posts", data)
 
         // sending data through action.payload (actual posts)
         dispatch({ type: FETCH_ALL, payload: data });
@@ -39,6 +40,16 @@ export const getPosts = () => async (dispatch) => {
     }
 
 }
+
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+    try {
+        const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
+        dispatch({ type: FETCH_BY_SEARCH, payload: data }); // sending the data to reducers
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export const createPost = (post) => async (dispatch) => {
     try {
@@ -90,3 +101,4 @@ export const likePost = (id) => async (dispatch) => {
     }
 
 }
+

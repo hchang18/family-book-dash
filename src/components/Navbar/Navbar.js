@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 
 import useStyles from './styles';
-import familybook from '../../images/familybook.png';
+import shell from '../../images/shell.jpg'; //https://www.123rf.com/photo_89105310_flat-design-simple-icon-snail-shell-vector-illustration.html
+import familybookText from '../../images/familybookText.png'; //https://www.coolgenerator.com/png-text-generator
 
 const Navbar = () => {
 
@@ -38,10 +39,11 @@ const Navbar = () => {
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
-            <div className={ classes.brandContainer}>
-                <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Familybook</Typography>
-                <img className={classes.image} src={ familybook } alt="Family Book" height="60" />
-            </div>
+            <Link to="/" className={ classes.brandContainer}>
+                {/* <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Familybook</Typography> */}
+                <img src={familybookText} alt="icon" align="bottom" height="70px" />
+                <img src={shell} alt="icon" height="60px"/>
+            </Link>
             <Toolbar className={classes.toolbar}>
                 {user ? (
                     <div className={ classes.profile}>
