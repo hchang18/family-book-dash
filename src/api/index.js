@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // local development
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
 
-// const API = axios.create({ baseURL: 'https://family-book-app.herokuapp.com/' });
+const API = axios.create({ baseURL: 'https://family-book-app.herokuapp.com/' });
 
 // adding something specific to each one of the request
 // it happens before all the things below
