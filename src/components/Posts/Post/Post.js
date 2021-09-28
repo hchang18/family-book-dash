@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'; // used to navigate to some place
+import { useHistory} from 'react-router-dom'; // used to navigate to some place
 
 import { deletePost, likePost } from '../../../actions/posts';
 import useStyles from './styles';
@@ -15,7 +15,7 @@ const Post = ({ post, setCurrentId }) => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory(); 
+    const history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
     
     // 1 like, 2 likes
@@ -78,7 +78,7 @@ const Post = ({ post, setCurrentId }) => {
                 )}
 
                 {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-                    <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id)) }>
+                    <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id, history)) }>
                         <DeleteIcon fontSize="small" /> Delete
                     </Button>
                 )}
