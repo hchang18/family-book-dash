@@ -45,19 +45,7 @@ const Post = ({ post, setCurrentId }) => {
                     <Typography variant="h6">{post.name}</Typography>
                     <Typography variant="body2">{ moment(post.createdAt).fromNow()}</Typography>
                 </div>
-                {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-                    <div className={classes.overlay2}>
-                        {/* 
-                        keep track of the current id of the post for edit, 
-                        to do that, we have to go back up to Posts and to App 
-                        because we have to share that state of current id with Form and Posts
-                        App is the only component where Form and Posts exist together
-                    */}
-                        <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>
-                            <MoreHorizIcon fontSize="medium" />
-                        </Button>
-                    </div>
-                )}
+           
                 <div className={ classes.details}>
                     <Typography variant="body2" color="textSecondary">
                         {post.tags.map((tag) => `#${tag} `)}
@@ -68,10 +56,26 @@ const Post = ({ post, setCurrentId }) => {
                     <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
                 </CardContent>
             </ButtonBase>
-            <CardActions className={ classes.cardActions}>
+            <CardActions className={classes.cardActions}>
+                {/* like button */}
                 <Button size="small" color="primary" disabled={ !user?.result } onClick={() => dispatch(likePost(post._id)) }>
                     <Likes />
                 </Button>
+
+                {/* edit button */}
+                {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+                    <div className={classes.overlay2}>
+                        {/* 
+                        keep track of the current id of the post for edit, 
+                        to do that, we have to go back up to Posts and to App 
+                        because we have to share that state of current id with Form and Posts
+                        App is the only component where Form and Posts exist together
+                        */}
+                        <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>
+                            <MoreHorizIcon fontSize="medium" />
+                        </Button>
+                    </div>
+                )}
 
                 {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
                     <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id)) }>

@@ -25,7 +25,8 @@ const Form = ({ currentId, setCurrentId}) => {
     // immediately return state.posts
     // how do you know it's .posts? 
     // go to reducer -> index.js -> we have combineReducers {{ posts }}
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+    // edit: now posts reducer returns {isLoading, posts=[]}, so you should call state.posts.posts
+    const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null );
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));

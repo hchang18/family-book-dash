@@ -13,6 +13,7 @@ const PostDetails = () => {
   // declare hooks at the top
   // it is very similar to Post component
   const { post, posts, isLoading } = useSelector((state) => state.posts);
+  console.log("hello?", isLoading);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -34,7 +35,7 @@ const PostDetails = () => {
     );
   }
 
-    return (
+  return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
@@ -53,9 +54,9 @@ const PostDetails = () => {
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
-        {/* LOGIC FOR RECOMMENDED POSTS */}
+      {/* LOGIC FOR RECOMMENDED POSTS */}
     </Paper>
-    )
+  );
 }
 
 export default PostDetails;
