@@ -24,6 +24,7 @@ const PostDetails = () => {
   // dispatch some action, and useEffect happens whenever id changes
   useEffect(() => {
     dispatch(getPost(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   
   // you can use multiple useEffect, it is fine
@@ -32,6 +33,7 @@ const PostDetails = () => {
     if (post) {
       dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
 
   if (!post) return null;
@@ -79,7 +81,7 @@ const PostDetails = () => {
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
                 <Typography gutterBottom variant="subtitle2">{message}</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={ selectedFile} width="200px" height="200px"/>
+                <img src={ selectedFile} width="200px" height="200px" alt=""/>
               </div>
             ))}
           </div>
