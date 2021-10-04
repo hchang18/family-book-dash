@@ -1,5 +1,5 @@
 // import everything from api
-import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING} from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, COMMENT, START_LOADING, END_LOADING} from '../constants/actionTypes';
 import * as api from '../api';
 
 // Action Creators : function that return action
@@ -57,7 +57,7 @@ export const getPost = (id) => async (dispatch) => {
 
         // fetch the data from api
         const { data } = await api.fetchPost(id);
-        console.log("actions: posts", data)
+        // console.log("actions: posts", data)
 
         // sending data through action.payload (actual posts)
         dispatch({ type: FETCH_POST, payload: data });
@@ -145,9 +145,16 @@ export const likePost = (id) => async (dispatch) => {
 
 export const commentPost = (value, id) => async (dispatch) => {
     try {
-        await api.commentPost(value, id);
+        // server commentPost in posts.js in controllers sends "updatedPost" back 
+        const { data } = await api.commentPost(value, id);
+        // console.log(data); // should return new post with comments: ['comments']
+
+        dispatch({ type: COMMENT, payload: data });
+
+        return data.comments;
+
     } catch (error) {
-        
+        console.log(error);
     }
 }
 
